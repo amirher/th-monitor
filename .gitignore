@@ -1,0 +1,9 @@
+bin/
+include/
+lib/
+.Python
+pip-selfcheck.json
+client_config.py
+server_config.py
+insertion.sql
+__pycache__/
