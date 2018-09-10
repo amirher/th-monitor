@@ -1,4 +1,4 @@
-# # Linux System Monitoring
+# Linux System Monitoring
 
 th-monitor is a combination client / server software package used to monitor Linux system resource consumption on [Thornleigh Farm](https://thornleighfarm.com).  The objectives of th-monitor are:
 
