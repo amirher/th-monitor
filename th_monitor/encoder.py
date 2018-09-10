@@ -14,6 +14,6 @@ class Encoder(JSONEncoder):
     """
     def default(self, object_to_encode):
         if isinstance(object_to_encode, Encodable):
-            return super().default(object_to_encode.encode())
+            return object_to_encode.encode()
 
         return super().default(object_to_encode)
