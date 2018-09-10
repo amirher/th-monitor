@@ -42,7 +42,7 @@ class Receiver(BaseHTTPRequestHandler):
 
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
-        data = self.rfile.read(content_length).deocode('utf-8')
+        data = self.rfile.read(content_length).decode('utf-8')
         delivery = Delivery(data)
         self._respond(delivery.status_code)
         return
