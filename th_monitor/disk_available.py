@@ -36,5 +36,5 @@ class DiskAvailable(Encodable, Attribute):
             free = int_free[result_index]
         self._free_mb = free
 
-    def encode(self) -> str:
-        return json.dumps(self._free_mb)
+    def encode(self) -> int:
+        return self._free_mb

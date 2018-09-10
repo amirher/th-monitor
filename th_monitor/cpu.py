@@ -25,10 +25,10 @@ class CPUStats(Encodable, Attribute):
         self._idle = round(float(cpu_data[35:40]), None)
         return
 
-    def encode(self) -> str:
-        return json.dumps({
+    def encode(self) -> dict:
+        return {
             'user': str(self._user),
             'system': str(self._system),
             'io_wait': str(self._io_wait),
             'idle': str(self._io_wait)
-        })
+        }

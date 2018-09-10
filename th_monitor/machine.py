@@ -3,7 +3,6 @@ Thornleigh Farm Monitor
 Machine Module
 author: hugh@blinkybeach.com
 """
-import json
 from datetime import datetime
 from th_monitor.encodable import Encodable
 from th_monitor.shell import Shell
@@ -14,7 +13,6 @@ from th_monitor.free_memory import FreeMemory
 from th_monitor.network_io import NetworkIO
 from th_monitor.attribute import Attribute
 from multiprocessing.dummy import Pool
-from th_monitor.encoder import Encoder
 
 
 class Machine(Encodable):
@@ -45,11 +43,11 @@ class Machine(Encodable):
 
         return
 
-    def encode(self) -> str:
+    def encode(self) -> dict:
         data = {
             'machine_id': self._machine_id,
             'sample_time': self._sample_time.strftime(self.DATETIME_FORMAT)
         }
         for attribute in self._attributes:
             data[attribute.NAME] = attribute
-        return json.dumps(data, cls=Encoder)
+        return data

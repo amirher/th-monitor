@@ -3,7 +3,6 @@ Thornleigh Farm Monitor
 Network IO Module
 author: hugh@blinkybeach.com
 """
-import json
 import time
 from th_monitor.encodable import Encodable
 from th_monitor.attribute import Attribute
@@ -25,10 +24,10 @@ class NetworkIO(Encodable, Attribute):
         self._samples = samples
         return
 
-    def encode(self) -> str:
-        return json.dumps([s.as_dict() for s in self._samples])
+    def encode(self) -> list:
+        return [s.encode() for s in self._samples]
 
-    class Sample:
+    class Sample(Encodable):
         """
         Input / output sample
         """
@@ -57,7 +56,7 @@ class NetworkIO(Encodable, Attribute):
             self._tx_kbs = int(tx_delta / sample_time / 1000)
             return
 
-        def as_dict(self) -> dict:
+        def encode(self) -> dict:
             return {
                 'iface_name': self._interface,
                 'tx_kb_s': self._tx_kbs,

@@ -20,5 +20,5 @@ class FreeMemory(Encodable, Attribute):
         self._available_memory = int(shell.execute(self._COMMAND))
         return
 
-    def encode(self) -> str:
-        return json.dumps(self._available_memory)
+    def encode(self) -> int:
+        return self._available_memory

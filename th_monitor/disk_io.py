@@ -64,8 +64,8 @@ class DiskIO(Encodable, Attribute):
                 return read_write
         raise RuntimeError('Unknown disk name!')
 
-    def encode(self) -> str:
-        return json.dumps({
+    def encode(self) -> dict:
+        return {
             'read_kb_s': self._read_kb_s,
             'write_kbs_s': self._write_kb_s
-        })
+        }
