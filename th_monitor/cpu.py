@@ -27,8 +27,8 @@ class CPUStats(Encodable, Attribute):
 
     def encode(self) -> dict:
         return {
-            'user': str(self._user),
-            'system': str(self._system),
-            'io_wait': str(self._io_wait),
-            'idle': str(self._io_wait)
+            'user': self._user,
+            'system': self._system,
+            'io_wait': self._io_wait,
+            'idle': self._io_wait
         }
