@@ -14,6 +14,6 @@ class MonitorServer(HTTPServer):
     An HTTP server for receiving monitoring data
     """
     def __init__(self, address: Tuple[str, int], database: Database) -> None:
-        self._database = database
+        self.database = database
         super().__init__(address, Receiver)
         return
