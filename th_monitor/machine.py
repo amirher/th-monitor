@@ -14,6 +14,7 @@ from th_monitor.free_memory import FreeMemory
 from th_monitor.network_io import NetworkIO
 from th_monitor.attribute import Attribute
 from multiprocessing.dummy import Pool
+from th_monitor.encoder import Encoder
 
 
 class Machine(Encodable):
@@ -51,4 +52,4 @@ class Machine(Encodable):
         }
         for attribute in self._attributes:
             data[attribute.NAME] = attribute
-        return json.dumps(data)
+        return json.dumps(data, cls=Encoder)
