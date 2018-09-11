@@ -7,3 +7,4 @@ client_config.py
 server_config.py
 insertion.sql
 __pycache__/
+share/
