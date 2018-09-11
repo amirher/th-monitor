@@ -47,6 +47,6 @@ class Package:
             data=self._to_json().encode('utf-8')
         )
 
-        urlopen(request)
+        urlopen(request, timeout=10)
 
         return
