@@ -58,5 +58,9 @@ class Database:
         """
         Insert sample data into the database
         """
-        self.execute(self._insertion_query, {'sample_data': data})
+        try:
+            self.execute(self._insertion_query, {'sample_data': data})
+            self.execute('commit')
+        except Exception:
+            self.execute('rollback')
         return
