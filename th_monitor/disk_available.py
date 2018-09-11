@@ -3,7 +3,6 @@ Thornleigh Farm Monitor
 Disk Space Used Module
 author: hugh@blinkybeach.com
 """
-import json
 from th_monitor.encodable import Encodable
 from th_monitor.attribute import Attribute
 from th_monitor.shell import Shell
@@ -19,11 +18,15 @@ class DiskAvailable(Encodable, Attribute):
 
     def __init__(self, shell: Shell) -> None:
         result = shell.execute(self._SINGLE_MOUNT)
+        if result[-1] == '\n':
+            result = result[:-1]
         try:
             free = int(result)
         except ValueError:
             block_result = shell.execute(self._MULTI_MOUNT)
             sizes = block_result.split('\n')
+            if sizes[-1] == '\n':
+                sizes = sizes[:-1]
             int_sizes = [int(b) for b in sizes]
             index = 0
             for blocksize in int_sizes:
