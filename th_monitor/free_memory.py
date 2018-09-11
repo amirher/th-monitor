@@ -14,7 +14,7 @@ class FreeMemory(Encodable, Attribute):
     A measure of free RAM, in megabytes
     """
     NAME = 'free_memory_mb'
-    _COMMAND = "free -m | /bin/grep 'Mem:' | awk '{printf $7}'"
+    _COMMAND = "free -m | grep 'Mem:' | awk '{printf $7}'"
 
     def __init__(self, shell: Shell) -> None:
         self._available_memory = int(shell.execute(self._COMMAND))

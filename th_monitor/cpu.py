@@ -14,9 +14,9 @@ class CPUStats(Encodable, Attribute):
     A measure of CPU time allocations
     """
     NAME = 'cpu_usage'
-    # %Cpu(s):  1.1 us,  0.7 sy,  0.0 ni, 98.2 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+    #%Cpu(s):  1.0 us,  0.6 sy,  0.0 ni, 98.4 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
 
-    _COMMAND = 'top -d 3 -b -n 2 | /bin/grep "%Cpu"'
+    _COMMAND = 'top -d 3 -b -n 2 | grep "%Cpu"'
 
     def __init__(self, shell: Shell) -> None:
         cpu_data = shell.execute(self._COMMAND).split('\n')[1]

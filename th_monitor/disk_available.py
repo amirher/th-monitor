@@ -13,8 +13,8 @@ class DiskAvailable(Encodable, Attribute):
     A measure of the number of megabytes available on a system disk
     """
     NAME = 'disk_mb_available'
-    _SINGLE_MOUNT = 'df -m | /bin/grep "^/" | awk \'{print $4}\''
-    _MULTI_MOUNT = 'df -m | /bin/grep "^/" | awk \'{print $2}\''
+    _SINGLE_MOUNT = 'df -m | grep "^/" | awk \'{print $4}\''
+    _MULTI_MOUNT = 'df -m | grep "^/" | awk \'{print $2}\''
 
     def __init__(self, shell: Shell) -> None:
         result = shell.execute(self._SINGLE_MOUNT)

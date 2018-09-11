@@ -17,7 +17,7 @@ class DiskIO(Encodable, Attribute):
     A measure of disk input / output
     """
     NAME = 'disk_io'
-    _COMMAND = 'sudo fdisk -l | /bin/grep "Sector size" | awk \'{print $4}\''
+    _COMMAND = 'sudo fdisk -l | grep "Sector size" | awk \'{print $4}\''
     _SAMPLE_TIME = 2
     _DISK_NAMES = ['xvda', 'sda', 'vda', 'nvme0n1']
 
@@ -29,7 +29,7 @@ class DiskIO(Encodable, Attribute):
         except ValueError:
             self._sector_size = int(result.split('\n')[0])
 
-        root = 'cat /proc/diskstats | /bin/grep "{disk} "'
+        root = 'cat /proc/diskstats | grep "{disk} "'
         sample = self._try_sample(root, self._DISK_NAMES)
         start_read = sample[0]
         start_write = sample[1]
