@@ -19,7 +19,7 @@ class DiskIO(Encodable, Attribute):
     NAME = 'disk_io'
     _COMMAND = 'sudo fdisk -l | grep "Sector size" | awk \'{print $4}\''
     _SAMPLE_TIME = 2
-    _DISK_NAMES = ['xvda', 'sda', 'vda']
+    _DISK_NAMES = ['xvda', 'sda', 'vda', 'nvme0n1']
 
     def __init__(self, shell: Shell) -> None:
         self._shell = shell
