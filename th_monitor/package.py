@@ -30,10 +30,9 @@ class Package:
         data = [m.encode() for m in self._machines]
         return json.dumps(data, cls=Encoder)
 
-    def send(self, url: str, agent: str, port: int) -> None:
+    def send(self, url: str, agent: str) -> None:
 
         assert isinstance(agent, str)
-        assert isinstance(port, int)
         assert isinstance(url, str)
 
         headers = {
@@ -42,7 +41,7 @@ class Package:
         }
 
         request = Request(
-            url + ':' + str(port),
+            url,
             method='POST',
             headers=headers,
             data=self._to_json().encode('utf-8')
