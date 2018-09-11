@@ -7,6 +7,7 @@ import time
 from th_monitor.encodable import Encodable
 from th_monitor.attribute import Attribute
 from th_monitor.shell import Shell
+from multiprocessing.dummy import Pool
 
 
 class NetworkIO(Encodable, Attribute):
@@ -18,9 +19,17 @@ class NetworkIO(Encodable, Attribute):
 
     def __init__(self, shell: Shell) -> None:
         self._shell = shell
-        interfaces = shell.execute('ls /sys/class/net').split('\n')
+        interfaces = shell.execute('ls /sys/class/net').split()
+        interfaces = [i for i in interfaces if i[0] != 'l']  # exclude loopback
         sample_time = self._SAMPLE_TIME
-        samples = [NetworkIO.Sample(i, shell, sample_time) for i in interfaces]
+        pool = Pool(len(interfaces))
+        samples = list()
+
+        def sample(interface):
+            samples.append(NetworkIO.Sample(interface, shell, sample_time))
+        pool.map(sample, interfaces)
+        pool.close()
+        pool.join()
         self._samples = samples
         return
 

@@ -24,9 +24,9 @@ class DiskAvailable(Encodable, Attribute):
             free = int(result)
         except ValueError:
             block_result = shell.execute(self._MULTI_MOUNT)
+            if block_result[-1] == '\n':
+                block_result = block_result[:-1]
             sizes = block_result.split('\n')
-            if sizes[-1] == '\n':
-                sizes = sizes[:-1]
             int_sizes = [int(b) for b in sizes]
             index = 0
             for blocksize in int_sizes:

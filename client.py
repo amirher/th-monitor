@@ -24,5 +24,6 @@ if EXAMINE_REMOTE is True:
         )
         machines.append(Machine(configuration['machine_id'], shell))
 
-URL = REMOTE_PROTOCOL + '://' + REMOTE_HOST + ':' + REMOTE_PORT + REMOTE_PATH
+PORT = str(REMOTE_PORT)
+URL = REMOTE_PROTOCOL + '://' + REMOTE_HOST + ':' + PORT + REMOTE_PATH
 Package(machines).send(URL, AGENT)
