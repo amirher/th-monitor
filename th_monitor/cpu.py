@@ -33,5 +33,5 @@ class CPUStats(Encodable, Attribute):
             'user': self._user,
             'system': self._system,
             'io_wait': self._io_wait,
-            'idle': self._io_wait
+            'idle': self._idle
         }
