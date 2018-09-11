@@ -63,4 +63,5 @@ class Database:
             self.execute('commit')
         except Exception:
             self.execute('rollback')
+            raise
         return
