@@ -8,6 +8,11 @@ from th_monitor.encodable import Encodable
 from th_monitor.attribute import Attribute
 from th_monitor.shell import Shell
 from multiprocessing.dummy import Pool
+from typing import Type
+from typing import TypeVar
+from typing import List
+
+T = TypeVar('T', bound='NetworkIO')
 
 
 class NetworkIO(Encodable, Attribute):
@@ -16,11 +21,11 @@ class NetworkIO(Encodable, Attribute):
     """
     NAME = 'network_io'
     _SAMPLE_TIME = 2
+    _EXCLUDE = ('l', 'n')
 
     def __init__(self, shell: Shell) -> None:
         self._shell = shell
-        interfaces = shell.execute('ls /sys/class/net').split()
-        interfaces = [i for i in interfaces if i[0] != 'l']  # exclude loopback
+        interfaces = NetworkIO.list_interfaces(shell)
         sample_time = self._SAMPLE_TIME
         pool = Pool(len(interfaces))
         samples = list()
@@ -37,9 +42,7 @@ class NetworkIO(Encodable, Attribute):
         return [s.encode() for s in self._samples]
 
     class Sample(Encodable):
-        """
-        Input / output sample
-        """
+        """Input / output sample"""
         def __init__(
             self,
             interface: str,
@@ -71,3 +74,10 @@ class NetworkIO(Encodable, Attribute):
                 'tx_kb_s': self._tx_kbs,
                 'rx_kb_s': self._rx_kbs
             }
+
+    @classmethod
+    def list_interfaces(cls: Type[T], shell: Shell) -> List[str]:
+        """Return a list of network interface names"""
+        interfaces = shell.execute('ls /sys/class/net').split()
+        # exclude loopback and unused interfaces
+        return [i for i in interfaces if i[0] not in cls._EXCLUDE]

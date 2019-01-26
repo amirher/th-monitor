@@ -11,6 +11,7 @@ from th_monitor.disk_io import DiskIO
 from th_monitor.disk_available import DiskAvailable
 from th_monitor.free_memory import FreeMemory
 from th_monitor.network_io import NetworkIO
+from th_monitor.network_journal import NetworkJournal
 from th_monitor.attribute import Attribute
 from multiprocessing.dummy import Pool
 
@@ -20,7 +21,8 @@ class Machine(Encodable):
     A collection of data describing a logical machine whose attributes we wish
     to sample. For example, a physical machine or a virtual machine.
     """
-    _ATTRIBUTES = [CPUStats, DiskIO, DiskAvailable, FreeMemory, NetworkIO]
+    _ATTRIBUTES = [CPUStats, DiskIO, DiskAvailable, FreeMemory, NetworkIO,
+                   NetworkJournal]
     DATETIME_FORMAT = '%Y-%m-%d_%H:%M:%S.%f'
 
     def __init__(self, machine_id: str, shell: Shell) -> None:
