@@ -44,8 +44,8 @@ class NetworkJournal(Encodable, Attribute):
             tx_packets_cmd = root + 'tx_packets'
             self._rx_bytes = int(shell.execute(rx_bytes_cmd))
             self._tx_bytes = int(shell.execute(tx_bytes_cmd))
-            self._rx_packets_cmd = int(shell.execute(rx_packets_cmd))
-            self._tx_packets_cmd = int(shell.execute(tx_packets_cmd))
+            self._rx_packets = int(shell.execute(rx_packets_cmd))
+            self._tx_packets = int(shell.execute(tx_packets_cmd))
             return
 
         def encode(self) -> Dict[str, Any]:
