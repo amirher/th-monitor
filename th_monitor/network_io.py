@@ -22,12 +22,13 @@ class NetworkIO(Encodable, Attribute):
     NAME = 'network_io'
     _SAMPLE_TIME = 2
     _EXCLUDE = ('l', 'n')
+    _MAX_CHANNELS = 4
 
     def __init__(self, shell: Shell) -> None:
         self._shell = shell
         interfaces = NetworkIO.list_interfaces(shell)
         sample_time = self._SAMPLE_TIME
-        pool = Pool(len(interfaces))
+        pool = Pool(max(len(interfaces), self._MAX_CHANNELS))
         samples = list()
 
         def sample(interface):
